@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure ssh configuration for ansible OS prepared - {{ bootstrap4ansible_user }}
+- name: Ensure ssh configuration for ansible user is prepared - {{ bootstrap4ansible_user }}
   ansible.builtin.blockinfile:
     path: /etc/ssh/sshd_config
     block: |

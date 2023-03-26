@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure sudoers config folder exists - /etc/sudoers.d
+- name: Ensure sudoers config folder /etc/sudoers.d exists
   ansible.builtin.file:
     path: /etc/sudoers.d
     state: directory
@@ -8,7 +8,7 @@
     group: root
     mode: '0750'
 
-- name: Ensure sudoers config file for ansible exists - /etc/sudoers.d/ansible
+- name: Ensure sudoers config file /etc/sudoers.d/ansible prepared for ansible user - {{ bootstrap4ansible_user }}
   ansible.builtin.copy:
     dest: /etc/sudoers.d/ansible
     owner: root

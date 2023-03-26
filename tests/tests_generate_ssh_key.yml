@@ -1,0 +1,11 @@
+---
+
+- name: Ensure public key parameter runs
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: "Include mprusov.bootstrap_linux_for_ansible"
+      vars:
+        bootstrap4ansible_user_generate_ssh_key: true
+      include_role:
+        name: "mprusov.bootstrap_linux_for_ansible"

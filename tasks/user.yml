@@ -3,6 +3,7 @@
 - name: Ensure ansible OS user exists - {{ bootstrap4ansible_user }}
   ansible.builtin.user:
     name: "{{ bootstrap4ansible_user }}"
+    comment: "{{ bootstrap4ansible_user_comment | default(omit) }}"
     uid: "{{ bootstrap4ansible_user_uid | default(omit) }}"
     shell: /bin/bash
     state: present
@@ -13,7 +14,7 @@
     password: "{{ bootstrap4ansible_user_pwd | password_hash('sha512') }}"
   when: bootstrap4ansible_user_pwd is defined
 
-- name: Ensure ansible OS inluded into groups - {{ bootstrap4ansible_user }}
+- name: Ensure ansible OS inluded into additional groups - {{ bootstrap4ansible_user }}
   ansible.builtin.user:
     name: "{{ bootstrap4ansible_user }}"
     groups: "{{ bootstrap4ansible_user_groups }}"
@@ -21,6 +22,13 @@
   when: bootstrap4ansible_user_groups is defined
 
 - name: Ensure ansible OS user has ssh key - {{ bootstrap4ansible_user }}
+  ansible.builtin.user:
+    user: "{{ bootstrap4ansible_user }}"
+    generate_ssh_key: true
+    ssh_key_bits: "{{ bootstrap4ansible_user_ssh_key_bits | default(2048) }}"
+  when: bootstrap4ansible_user_generate_ssh_key | d(false) | bool
+
+- name: Ensure ansible OS user authorized by public key - {{ bootstrap4ansible_user }}
   ansible.posix.authorized_key:
     user: "{{ bootstrap4ansible_user }}"
     key: "{{ lookup('file', bootstrap4ansible_user_public_key_file) }}"
