@@ -1,0 +1,4 @@
+---
+# defaults file for bootstrap_linux_for_ansible
+
+bootstrap4ansible_user: ansible

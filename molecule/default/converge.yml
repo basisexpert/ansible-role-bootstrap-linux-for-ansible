@@ -1,0 +1,6 @@
+---
+- name: Converge
+  hosts: all
+
+- import_playbook: ../../tests/tests_default.yml
+- import_playbook: ../../tests/tests_public_key.yml

@@ -1,0 +1,21 @@
+---
+
+- name: Ensure sudoers config folder exists - /etc/sudoers.d
+  ansible.builtin.file:
+    path: /etc/sudoers.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0750'
+
+- name: Ensure sudoers config file for ansible exists - /etc/sudoers.d/ansible
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/ansible
+    owner: root
+    group: root
+    mode: '0750'
+    content: |
+      # BEGIN ANSIBLE MANAGED BLOCK
+      ansible ALL=(ALL:ALL) NOPASSWD: ALL
+      # END ANSIBLE MANAGED BLOCK
+    validate: visudo -cf %s

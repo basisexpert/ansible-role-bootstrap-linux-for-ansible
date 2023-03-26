@@ -1,0 +1,11 @@
+---
+# tasks file for bootstrap_linux_for_ansible
+
+- name: Ensure ansible user is prepared
+  ansible.builtin.import_tasks: user.yml
+
+- name: Ensure sudo enabled for ansible user
+  ansible.builtin.import_tasks: sudo.yml
+
+- name: Ensure ssh enabled for ansible user
+  ansible.builtin.import_tasks: ssh.yml
