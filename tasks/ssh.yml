@@ -10,5 +10,6 @@
         X11Forwarding no
         PubkeyAuthentication yes
     marker: "# {mark} ANSIBLE MANAGED BLOCK, ansible user - {{ bootstrap4ansible_user }}"
+    validate: sshd -t -f %s
   notify:
     - Reload sshd service

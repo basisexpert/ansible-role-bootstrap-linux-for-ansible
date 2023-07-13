@@ -3,6 +3,19 @@
 - name: Converge
   hosts: all
 
+  pre_tasks:
+    - name: Ensure required system software is installed
+      ansible.builtin.package:
+        state: present
+        name:
+          - openssh-server
+          - openssh-clients
+
+    - name: Prepare host rsa key
+      community.crypto.openssh_keypair:
+        path: /etc/ssh/ssh_host_rsa_key
+        type: rsa
+
 - import_playbook: ../../tests/tests_default.yml
 - import_playbook: ../../tests/tests_public_key_file.yml
 - import_playbook: ../../tests/tests_generate_ssh_key.yml
